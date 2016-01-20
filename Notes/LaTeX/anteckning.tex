@@ -1,0 +1,202 @@
+\documentclass[a4paper]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\title{DD1368 Database Technology Lecture notes}
+\author{Zixian Song}
+
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=black,  %choose some color if you want links to stand out
+}
+
+\begin{document}
+\maketitle
+
+\begin{figure}[b] 
+\centering 
+\includegraphics[width=2.045cm,height=2.335cm]{kth_svv_comp_science.eps}
+\end{figure}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Lecture 1: Intro}
+2016-01-20 \\
+    Introduction
+    \subsection{Content of databases}
+        \begin{itemize}
+            \item Design of databases 
+            \item E/R  model, relation model, semistructured model, XML
+  
+        \item Database programing 
+        \item SQL, XPath, XQuery 
+        \item Relational algebra, Tuple Calculus, FOL. 
+        \item ODBC JDBC or etc \ldots
+        \end{itemize}
+    \subsection{Interesing Stuff About Database}
+        \begin{itemize}
+            \item Websearch 
+            \item Data mining 
+            \item Scientific and medical databases 
+            \item integrationg information. 
+            \item \textbf{NSA! wikileaks HeathCare.gov} 
+            \item Still more. \ldots
+        \end{itemize}
+    \subsection{And More}
+        Database often have unique 
+        concurrency-control problems. \\
+        \begin{itemize}
+            \item Many activities (transactions) at the database at all times.
+            \item Must not confuse actions, e.g. two withdrewal from the same account must each debit the account.
+            \item ATC :
+        \end{itemize}
+    \subsection{What is a Data Model}
+    \begin{enumerate}
+        \item Mathematical represention of data.
+        \begin{itemize}
+            \item Examples:relational model = tables;
+            \item Semistruced model = trees,graphs
+        \end{itemize}
+        \item Operations on data
+        \item Constraints
+    \end{enumerate}
+    \subsection{Schema}
+        \begin{itemize}
+            \item Relation schema = relation name and attribute list.
+        \end{itemize}
+
+    \subsection{Our Running Example}
+    Beer(\underline{name}, manf) \\
+    Bars(\underline{name}, addr, license) \\
+    Drinkers(\underline{name}, addr, phone) 
+    \\
+    Underline = \textit{key} (tuples cannot have the same value in all key attributes).
+        \begin{itemize}
+         \item Excellent 
+         \end{itemize}
+    \subsection{Example: Multiattribute Key}
+    \begin{verbatim}
+        CREATE TABLE Sells (
+            bar CHAR(20),
+            beer VARCHAR(20),
+            price REAL,
+            PRIMARY KEY (bar, beer) 
+            );
+    \end{verbatim}
+    \subsection{Semistrucured Data}
+        \begin{itemize}
+            \item Another data model, based on trees graphs.
+            \item \textbf{Motivation}: flexible represention of data
+            \item \textbf{Motivation}: sharing of \textit{documents} among systems and databases
+        \end{itemize}
+
+
+    \newpage
+
+    \section{Lecture 2: Relational Algebra and Tuple Calculus}
+        \subsection{Ideal Picture}
+            \begin{itemize}
+                \item Tuple Calculus: Declarative(logical) expression of what the user wants
+                \item Relational Algebra: Procedural Expression that can obtain answers
+                \item Opetimized Relational Algebra: Can be efficienty executed over database
+            \end{itemize}
+        \subsection{Example}
+        "Names of companies in Sweden that have a supplier from China"
+            \begin{verbatim}
+                {x.name | company(x) AND x.country = 'Sweden' AND
+                (Ey)(Ex)( supplies(y) AND company(z) AND 
+                z.contry = 'China' AND x.id = y.to AND y.from = z.id)}
+            \end{verbatim}
+        \subsection{What is Relational Algebra}
+                \begin{itemize}
+                    \item An algebra whose operands are relations or variables that represent relations.
+                    \item Operators are designed to do the most common things that we need to do with relations in a database.
+                    \item The result is an algebra that can be used as a query language for relations.
+                
+                \end{itemize}
+        \subsection{Core Relational Algebra}
+            \begin{itemize}
+                \item Union, intersection, and difference.
+                    \begin{itemize}
+                        \item Usual set operations, but \textit{both operands must have the same relation schema.}
+                    \end{itemize}
+                \item \textbf{Selection}: picking certain rows.
+                \item \textbf{Projection}: picking certain columns.
+                \item \textbf{Products} and \textbf{joins}: compositions of relations.
+                \item \textbf{Renaming} of relations and attributes.
+            \end{itemize}
+
+        \subsection{Selection}
+        \begin{center}
+            $R1:= \sigma_{c}(R)$
+        \end{center}
+            \begin{itemize}
+                \item $C$ is a condition (as in “if” statements) that refers to attributes 
+of R2.
+                \item R1 is all those tuples of R2 that satisfy 
+$C$.
+            \end{itemize}
+        \subsection{Selection:Example}
+
+            Relation Sells:
+            \begin{center}
+            \begin{tabular}{ |c|c|c| } 
+            \hline
+                bar & beer & price \\ 
+            \hline
+                Joe’s & Bud & 2.50 \\ 
+                Joe’s & Miller & 2.75 \\ 
+                Sue’s & Bud & 2.50 \\
+                Sue’s & Miller & 3.00 \\
+            \hline
+            \end{tabular}
+            \\ 
+            $JoeMenu:= \sigma_{bar} = "joe's"(Sells):$ 
+            \\ 
+            
+            \begin{tabular}{ |c|c|c| } 
+            \hline
+                bar & beer & price \\ 
+            \hline
+                Joe’s & Bud & 2.50 \\ 
+                Joe’s & Miller & 2.75 \\ 
+            \hline
+            \end{tabular}   
+            \end{center}
+
+
+
+        \subsection{Projection}
+            \begin{center}
+            $R2:= \pi_{L}(R):$
+            \end{center}
+                \begin{itemize}
+                    \item $L$ is a list of attributes from the schema of R2.
+                    \item R1 is constructed by looking at each tuple of R2, extracting the attributes on list $L$, in the order specified, and creating from those components a tuple for R1.
+                    \item Eliminate duplicate tuples, if any.
+                \end{itemize}
+        \subsection{Product}
+            \begin{center}
+                $R3:= R1 \times R2$
+            \end{center}
+            \begin{itemize}
+                \item Pair each tuple t1 of R1 with each tuple t2 of R2.
+                \item Concatenation t1 t2 is a tuple of R3.
+                \item Schema of R3 is the attributes of R1 and then R2, in order.
+                \item But beware attribute $A$ of the same name in R1 and R2: use R1.$A$ and R2.$A$.
+            \end{itemize}
+        \subsection{example}
+            Names if companis who supply another company: \\
+            $ \{x.name | company(x) \wedge (\exists y)(Supplies(Y) \wedge y.from = 
+            x.name)\}$
+
+                
+
+
+    
+
+\end{document}

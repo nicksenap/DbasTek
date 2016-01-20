@@ -1,0 +1,49 @@
+\documentclass[a4paper]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\title{Recitation 1}
+\author{Zixian Song}
+
+\begin{document}
+\maketitle
+
+
+\section{Problem 1}
+Consider the following schema:
+\begin{itemize}
+    \item Person(\textbf{id},name,address)
+    \item Student(\textbf{id})
+    \item Teacher(\textbf{id}, office)
+    \item Course(\textbf{cid}, name, teacherId)
+    \item Takes(\textbf{id}, \textbf{cid}, grade)
+    \item Requires(\textbf{cid}, requiredCid)
+\end{itemize}
+Where primary keys are in bold and id in Student and Teacher are foreign keys of Person, id in Takes is a foreign key of Student, teacherId in Course is a foreign key of Teacher, cid in Takes and Requires is a foreign key of Course, and finally requiredCid is a foreign key of Course.
+\\ \\
+Answer at least 2 of the following queries in relational algebra:
+\begin{itemize}
+    \item a. Names of all the students
+    \item b. Name of the teacher teaching the course with id DD1368
+    \item c. Names of the students taking the course with id DD1368
+\end{itemize}
+\newpage 
+\subsection{Solution}
+a. Names of all the students:
+    \begin{center}
+        $\Pi_{name}(Student)$
+    \end{center}
+We use \textit{Selection} to select the name column of Student.
+\\ \\
+b. Name of the teacher teaching the course with id DD1368
+\\ \\
+c. Names of the students taking the course with id DD1368
+    \begin{center}
+    $\Pi_{name}(\sigma_{\Pi_{id}(\sigma_{\Pi_{cid}(\sigma_{DD1368}(Course))}(Takes))}(Person))$
+    \end{center}
+We use \textit{Project}
+
+
+\end{document}
