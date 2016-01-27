@@ -17,4 +17,5 @@
 \contentsline {subsection}{\numberline {2.6}Selection:Example}{6}{subsection.2.6}
 \contentsline {subsection}{\numberline {2.7}Projection}{6}{subsection.2.7}
 \contentsline {subsection}{\numberline {2.8}Product}{6}{subsection.2.8}
-\contentsline {subsection}{\numberline {2.9}example}{6}{subsection.2.9}
+\contentsline {subsection}{\numberline {2.9}Theta-Join}{6}{subsection.2.9}
+\contentsline {subsection}{\numberline {2.10}example}{6}{subsection.2.10}

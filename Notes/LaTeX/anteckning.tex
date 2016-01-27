@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
+
 \title{DD1368 Database Technology Lecture notes}
 \author{Zixian Song}
 
@@ -189,6 +190,13 @@ $C$.
                 \item Schema of R3 is the attributes of R1 and then R2, in order.
                 \item But beware attribute $A$ of the same name in R1 and R2: use R1.$A$ and R2.$A$.
             \end{itemize}
+        \subsection{Theta-Join}
+            \begin{center}
+                $R3:= R1 \bowtie_{\theta}_{c} R2$
+            \end{center}        
+
+
+
         \subsection{example}
             Names if companis who supply another company: \\
             $ \{x.name | company(x) \wedge (\exists y)(Supplies(Y) \wedge y.from = 

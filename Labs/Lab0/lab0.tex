@@ -1,0 +1,61 @@
+\documentclass[a4paper]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\title{Lab 0}
+\author{Zixian Song}
+
+\begin{document}
+\maketitle
+
+
+\section{Question 6}
+How many countries are there?
+\\ 
+We use code:
+\begin{verbatim}
+SELECT COUNT(name) FROM Country;
+\end{verbatim}
+And got result 
+\begin{verbatim}
+ count
+-------
+   238
+(1 row)
+\end{verbatim}
+So i guess result is 238.
+
+\section{Question 7}
+Names of organizations that Sweden is a member of?
+\\
+We use code:
+\begin{verbatim}
+SELECT(country,name) FROM Organization
+WHERE country='S';
+\end{verbatim}
+And got:
+\begin{verbatim}
+         row
+----------------------
+ (S,"Nordic Council")
+(1 row)
+\end{verbatim}
+so only in Organization, Nordic Council.
+
+\section{Question 8}
+Didn't go so well
+used code
+\begin{verbatim}
+SELECT geo_river.river ,River.length 
+,SUM(River.length) AS Length_sum FROM geo_river, River
+WHERE geo_river.country='USA'
+GROUP BY River.name;
+\end{verbatim}
+
+
+
+
+
+\end{document}

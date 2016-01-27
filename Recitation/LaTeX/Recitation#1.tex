@@ -33,17 +33,38 @@ Answer at least 2 of the following queries in relational algebra:
 \subsection{Solution}
 a. Names of all the students:
     \begin{center}
-        $\Pi_{name}(Student)$
+        $\Pi_{name}(Student \bowtie_{Student.id = Person.id} Person) $
     \end{center}
-We use \textit{Selection} to select the name column of Student.
+We use \textit{Theta join} to join the table Student and Person,
+   condition is the Student id and Person's id are same, which means the person is a stundet, then use \textit{Projection} to list the name.
 \\ \\
 b. Name of the teacher teaching the course with id DD1368
-\\ \\
-c. Names of the students taking the course with id DD1368
     \begin{center}
-    $\Pi_{name}(\sigma_{\Pi_{id}(\sigma_{\Pi_{cid}(\sigma_{DD1368}(Course))}(Takes))}(Person))$
+    $\Pi_{name}(Person \bowtie_{Teacher.id = Person.id} (Teacher \bowtie_{Teacher.id = Course.teacherId}(\sigma_{cid=DD1368}(Course))) $
     \end{center}
-We use \textit{Project}
 
-
+c. Names of the students taking the course with id DD1368
+\\ \\
+\section{Problem 2}
+Answer at least 2 of the following in relational algebra
+\begin{itemize}
+    \item a. Names of students that have never scored an E in any course
+    \item b. Names of teachers who teach more than 1 course
+    \item c. Highest grade achieved in DD2471 (Note that '>' can compare grades (e.g. A > D) and that it is possible that no one got an A in the course.) 
+\end{itemize}
+\subsection{Solution}
+a. Names of students that have never scored an E in any course:
+\begin{center}
+   $ \Pi_{name}(Person \bowtie_{student.id = Person.id} (Student \bowtie_{Takes.id = Studet.id}(\sigma_{Takes.grade != E}(Takes) ) ) ) $
+\end{center}
+b. Names of teachers who teach more than 1 course
+\begin{center}
+$\Pi_{name}(Person \bowtie_{Teacher.id = Person.id} (Teacher \bowtie_{Course.TeacherId=Teacher.id})(\sigma_{Course.cid!=Course.cid\land Course.TeacherId=Course.TeacherId}(Course) )) $
+\end{center}
+\section{Problem 3}
+Answer at least 3 of 1a,1b,2a,2b,2c in tuple calculus.
+\subsection{Solution}
+1a \\
+$\{ t.name | Student(t) \} $
 \end{document}
+
