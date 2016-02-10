@@ -1,0 +1,4 @@
+# !/bin/sh
+echo 'pwd has been copied :D'
+python pwd.py
+psql -U nsong -h nestor2.csc.kth.se
